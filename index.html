@@ -1,250 +1,49 @@
 <!doctype html>
-
-<html>
-
-<head>
-	<title>Last-Modified Demo</title>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  
+	<title>Jeff Ellis Hobbs // Projects</title>
 	
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<style>
-	
-		h1, h2, h3, h4, h5, h6, p, .label, .progress-bar { 
-			font-family: 'Open Sans', sans-serif !important; 
-		}
-		
-		body {
-			padding-top: 35px;
-		}
-		
-		.progress {
-			border-radius: 0px;
-			width: 100%; 
-			height: 26px;
-			position:fixed; 
-			top: 0; 
-			left: 0;
-			opacity: 1;
-			z-index: 1031;
-		}
-		 
-		.progress-bar{
-			padding-top: 3px;
-		}
-		
-		.animated {
-			-webkit-animation-duration: 1s;
-			animation-duration: 1s;
-			-webkit-animation-fill-mode: both;
-			animation-fill-mode: both;
-		}
-				
-		@-webkit-keyframes pulse {
-		  0% {
-		    -webkit-transform: scale(1);
-		    transform: scale(1);
-		  }
 
-		  50% {
-		    -webkit-transform: scale(1.1);
-		    transform: scale(1.1);
-		  }
-
-		  100% {
-		    -webkit-transform: scale(1);
-		    transform: scale(1);
-		  }
-		}
-
-		@keyframes pulse {
-		  0% {
-		    -webkit-transform: scale(1);
-		    -ms-transform: scale(1);
-		    transform: scale(1);
-		  }
-
-		  50% {
-		    -webkit-transform: scale(1.1);
-		    -ms-transform: scale(1.1);
-		    transform: scale(1.1);
-		  }
-
-		  100% {
-		    -webkit-transform: scale(1);
-		    -ms-transform: scale(1);
-		    transform: scale(1);
-		  }
-		}
-
-		.pulse {
-		  -webkit-animation-name: pulse;
-		  animation-name: pulse;
-		}
-		
 	</style>
 	
 	<script>
 	
-	var firstStart = true;
-	var defaultCountdown = 10;
-	var serverTimestamp = "";
-	var newServerTimestamp = "";
-	
-		$( document ).ready(function() {
-			checkForPageUpdate();
-			startTimer();
-		});
-	
-
-		function startTimer() {
-								
-			$("#timer-display").css("width","0%");
-			//$("#progress-bar-container").slideDown();
-			
-			var sec = 0;
-			var countdown = defaultCountdown;
-			
-			scanningTimer = setInterval( function(){
-				sec++;
-				if (sec == (countdown+1)) {
-					
-				  	clearInterval(scanningTimer);
-					startTimer();
-					checkForPageUpdate();
-					
-				} else {
-	
-					var remainingSeconds = (countdown - sec);
-					console.log("Checking for update in " + remainingSeconds + " seconds");
-					$("#timer-display").css("width",(sec * (100/countdown) + "%"));
-					
-					if (remainingSeconds == 0) {
-						
-						$("#timer-display-numeric").html(" Checking for updates ");	
-						$("#progress-bar-container").addClass("progress-striped active");
-						
-					} else {
-					 
-						$("#timer-display-numeric").html(" Checking in " + remainingSeconds + " seconds ");	
-						 
-					}
-				}
-		
-			}, 1000);
-		
-		}
-		
-		function stopTimer() {
-			   
-		  	clearInterval(scanningTimer);
-			$("#progress-bar-container").slideDown();
-		  	$("#timer-display").css("width","100%");
-			$("#timer-display").addClass("progress-bar-danger");
-		  	$("#progress-bar-container").addClass("pulse");
-			$("#timer-display-numeric").html("<p><a class='btn btn-block btn-danger btn-xs' href='#' onclick='location.reload();'> <span class='glyphicon glyphicon-cloud-download'> </span> This page has been updated. Get the latest update <span class='glyphicon glyphicon-cloud-download'> </span> </a></p>"); 
-		 
-		}
-		
-		function checkForPageUpdate(){
-			
-			var req = new XMLHttpRequest();  
-			req.open('GET', document.location, false);
-			req.send(null);
-			newServerTimestamp = req.getResponseHeader("Last-Modified");
-
-			$("#server-last-modified").html("Last-Modified: " + newServerTimestamp);
-			$("#progress-bar-container").removeClass("progress-striped active");
-			
-			compareTimestamps();
-			
-			serverTimestamp = newServerTimestamp;
-			
-		}
-		
-		function compareTimestamps(){
-			
-			console.log("old: "+ serverTimestamp);
-			console.log("new: "+ newServerTimestamp);
-			
-			if (serverTimestamp == newServerTimestamp) {
-				console.log("No change found on server");
-				firstStart = false;
-			} else {
-				if (firstStart == false) {
-					console.log("Page has changed on server");
-					stopTimer();
-				}
-			}
-		}
-		
-
-
 	</script>
 
 <body>
 	
-	<div id="progress-bar-container" class="progress animated" style="display:none" >
-	  <div id="timer-display" class="progress-bar progress-bar-default nil" role="progressbar">
-	      <span id="timer-display-numeric"></span>
-	  </div> 
-	</div>
-	
-	<div class="container">
-		
-		<div class="header" style="width:100%; height: 120px; border: 1px dashed #f1f1f1; margin-bottom: 15px">
-			<span class="label label-default">Header</span>
-		</div>
-		
-		<div class="row"> 
-			<div class="col-md-8">
-		
-				<span class="label label-default">Article</span>
-		
-				<h1>Lorem Ipsum</h1>
-				<h6 id="last-modified"></h6>
-				<h6 id="server-last-modified"></h6>
-				
+	<div class='container'>
+		<div class='row'>
+			<div class='col-sm'>
+				<h3>Active Projects</h3>
 				<hr>
-		
-				<img style="display: inline; float: right; padding: 0px 0px 10px 10px" src="http://placekitten.com/g/300/300">
-				
-				<p>Lorem ipsum dolor sit amets, consectetur adipiscing elit. Sed ultricies euismod ipsum. Phasellus id lacus id mi porttitor volutpat eget vitae ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur tortor urna, mollis eu nibh a, faucibus venenatis mi. Donec ipsum mauris, rhoncus vitae suscipit id, consequat eget magna. Nunc nec nunc id nisl adipiscing dapibus. Donec id ullamcorper elit, id mollis eros. Cras quam tellus, pretium in consequat eu, congue ut purus. Sed nunc tortor, dapibus ut iaculis accumsan, aliquet aliquet justo. In mollis rutrum metus, in ultricies lorem pretium a. Maecenas ac vestibulum tortor. Nullam auctor odio diam, eu blandit dolor convallis non. Quisques semper in erat et pretium.</p>
-
-<p>Cras venenatis sapien diam, vitae faucibus odio suscipit malesuada. Curabitur lacinia dui quis molestie bibendum. Nulla luctus adipiscing faucibus. Ut commodo est ante, in fermentum mi auctor vel. Pellentesque cursus, nisl vitae molestie adipiscing, eros neque faucibus enim, porta gravida enim augue non tellus. Nullam imperdiet elementum elit, ac dictum quam lobortis sed. Aliquam pharetra nibh vel massa fermentum euismod. Sed pellentesque nisl lectus, nec bibendum sem ultricies ut. Sed nec tellus rutrum, vehicula orci at, imperdiets arcu. Sed rutrum venenatis lacinia. In cursus sed massa ac hendrerit. Nullam sollicitudin nisl et metus auctor posuere. Duis at velit hendrerit urna malesuada volutpat. Duis feugiat ipsum purus, tincidunt aliquet lectus condimentum vitae.</p>
-
-<p>Morbi viverra iaculis diam nec imperdiet. Aenean vel eros felis. Nunc convallis libero vitae lacinia laoreet. Praesent ac nibh sed lacus rutrum fringilla. Pellentesque ultrices libero arcu, ac consequat mauris dapibus id. Nullam id felis cursus, fermentum tortor non, aliquet tellus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam non euismod risus. Nam sit amet augue eu dolor laoreet volutpat. Aenean sed purus tincidunt, consequat nisl a, ornare tellus. Duis sollicitudin, enim nec dignissim molestie, arcu augue adipiscing velit, sollicitudin iaculis est diam eu lorem. Cras id velit est. Sed et arcu ut lectus pharetra porta. Ut aliquam scelerisque odio, in porta nulla luctus a.</p>
-
-				<img style="display: inline; float: left; padding: 10px 10px 10px 0px" src="http://placekitten.com/g/300/300">
-
-<p>Pellentesque ultricies imperdiet erat, at aliquet quam lobortis sed. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean luctus dui enim, malesuada sollicitudin ipsum euismod ut. Cras suscipit convallis pellentesque. Curabitur a auctor leo, eget faucibus justo. Nunc luctus dictum eros a convallis. Phasellus convallis cursus nibh, sit amet tempus quam pretium ut. Nulla vel lorem suscipit, vulputate mauris ut, vehicula mi.</p>
-
-<p>Sed consectetur tellus sit amet arcu convallis porttitor. Ut consequat imperdiet purus, at feugiat orci adipiscing vitae. Mauris mattis elementum est, cursus mollis enim hendrerit malesuada. Curabitur accumsan tempus dui vitae blandit. Duis sed erat sagittis, fringilla elit non, euismod tortor. Duis viverra, purus vitae scelerisque condimentum, sapien tortor dignissim ligula, ut laoreet neque diam sit amet diam. Donec id dapibus lorem. Donec eu congue sapien, nec dignissim mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla auctor sem a condimentum mattis. Etiam varius nibh ac mauris dignissim, ut placerat neque pretium. </p>
-					
+				<ul>
+					<li>one</li>
+					<li>two</li>
+					<li>three</li>
+				</ul>
 			</div>
-			
-			<div class="col-md-4" style="height: 700px; border: 1px dashed #f1f1f1;">
-			
-				<br/><span class="label label-default">Right Rail</span><br/><br/>
-			
-				<img src="http://placekitten.com/g/300/250" style="max-width: 100%; height: auto; padding-bottom: 15px">
-				
-				<img src="http://placekitten.com/g/300/250" style="max-width: 100%; height: auto; padding-bottom: 15px">
-				
-				<img src="http://placekitten.com/g/300/250" style="max-width: 100%; height: auto; padding-bottom: 15px">
-				
+			<div class='col-sm'>
+				<h3>Older Projects</h3>
+				<hr>
+				<ul>
+					<li>one</li>
+					<li>two</li>
+					<li>three</li>
+				</ul>
 			</div>
-			
 		</div>
-		
-		<div class="footer" style="width:100%; height: 120px; border: 1px dashed #f1f1f1; margin-top: 15px">
-			<span class="label label-default">Footer</span>
-		</div>
-		
-	</div>
+	</div>	
 	
 </body>
 
