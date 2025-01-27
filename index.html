@@ -281,9 +281,8 @@
 	
 <script>
 
-new WOW().init();
+	new WOW().init();
 
-setTimeout(() => {
 	VANTA.NET({
 	  el: "#backdrop",
 	  mouseControls: true,
@@ -293,9 +292,12 @@ setTimeout(() => {
 	  minWidth: 200.00,
 	  scale: 1.00,
 	  scaleMobile: 1.00
-	})
-}, "500");
-	
+	});
+
+	function moreinfo(project){
+		alert(project);
+	};
+
 </script>
 </body>
 </html>
