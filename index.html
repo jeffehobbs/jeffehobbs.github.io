@@ -278,7 +278,21 @@
 
 		</div><!-- end row -->
 	</div><!-- end container -->
-	
+
+	<div id="project-modal" class="modal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 id="project-title" class="modal-title">More Info</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div id="project-description" class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <script>
 
 	new WOW().init();
@@ -302,15 +316,19 @@
 		  "pillarbox": "Pillarbox.me was built to serve a very specific production need -- we'd often have tall photos of story subjects and have to place those photos in a landscape aspect ratio container. This tool does so in a basic and attractive way, color matching the background to the primary color of the photo. It's now used by news organizations across the United States!",
 		  "spirited": "SpiritedDebate.news is primarily an experiment in LLM content, filtered through my own personal love of comment section squabbling. No ghosts were actually harmed!",
 		  "anagrammatic": "During the United States COVID lockdown, my wife and I played a lot of Scrabble. She's better at it than I am, so I had to cheat. The entire application is a serverless flask lambda on AWS.",
-		  "wmassweather": "",
-		  "curbalert": "",
-		  "montaguelog": "",
-		  "radiodream": ""
+		  "wmassweather": "Western Mass weather, data pulled from Weatherkit, graphed by plotly, summarized by OpenAI LLM. I actually use this!",
+		  "curbalert": "Cheating at Craigslist.",
+		  "montaguelog": "Imaginary scenarios based on actual police lo items. Names and addresses are redacted via entity extraction, and then the scenario is imagined by OpenAI LLM.",
+		  "radiodream": "60 seconds of French radio, turned into text via the Whisper model, then imagined by the OpenAI LLM."
 		};
 
-		const description = data[project];
-
-		alert(description);
+		const projectTitle = document.getElementById("project-title");
+		const projectDescription = document.getElementById("project-description");
+		projectTitle.innerHTML = project;
+		projectDescription.innerHTML = data[project];
+		var projectModal = document.getElementById('project-modal'); 
+		var modal = new bootstrap.Modal(projectModal);
+		modal.show(); 
 	};
 
 </script>
