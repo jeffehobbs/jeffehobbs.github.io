@@ -295,7 +295,22 @@
 	});
 
 	function moreinfo(project){
-		alert(project);
+		const data = {
+		  "clickthru": "Clickthru.news is an experiment to see if I could go from an OPML file to an attractive web-based display. It's been featured on The Verge!",
+		  "bingocard": "Bingocard.club is primarily an excuse to play with the (excellent) Python PIL/pillow graphic manipulation library.",
+		  "uncanny": "Uncanny-Valley.com is a way to easily look at all the news sites of the Pioneer Valley at once.",
+		  "pillarbox": "Pillarbox.me was built to serve a very specific production need -- we'd often have tall photos of story subjects and have to place those photos in a landscape aspect ratio container. This tool does so in a basic and attractive way, color matching the background to the primary color of the photo. It's now used by news organizations across the United States!",
+		  "spirited": "SpiritedDebate.news is primarily an experiment in LLM content, filtered through my own personal love of comment section squabbling. No ghosts were actually harmed!",
+		  "anagrammatic": "During the United States COVID lockdown, my wife and I played a lot of Scrabble. She's better at it than I am, so I had to cheat. The entire application is a serverless flask lambda on AWS.",
+		  "wmassweather": "",
+		  "curbalert": "",
+		  "montaguelog": "",
+		  "radiodream": ""
+		};
+
+		const description = data[project];
+
+		alert(description);
 	};
 
 </script>
