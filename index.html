@@ -303,6 +303,12 @@
 
 	new WOW().init();
 
+	if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+		document.getElementById('root').setAttribute('data-bs-theme', 'dark');
+	} else {
+		document.getElementById('root').setAttribute('data-bs-theme', 'light');	
+	};
+
 	VANTA.NET({
 	  el: "#backdrop",
 	  mouseControls: false,
