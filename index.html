@@ -326,6 +326,15 @@
 		})
 	};
 
+	const mql = window.matchMedia("(prefers-color-scheme: dark)");
+	mql.addEventListener("change", () => {
+	    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+		document.getElementById('root').setAttribute('data-bs-theme', 'dark');
+	    } else {
+		document.getElementById('root').setAttribute('data-bs-theme', 'light');
+	    };
+	});
+
 	function moreinfo(project){
 		const data = {
 		  "Clickthru.news": "Clickthru.news is an experiment to see if I could go from an OPML file to an attractive web-based display. It's been featured on The Verge!",
