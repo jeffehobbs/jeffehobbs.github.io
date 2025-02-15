@@ -7,7 +7,8 @@ TODO:
 * [X] Add bots
 * [X] Add OG metadata
 * [X] Stagger loading of cards in visually nifty way
-* [ ] Add "What's This?" function to explain each project
+* [X] Add "What's This?" function to explain each project
+* [ ] Make the "What's This?" text better
 
 NOTES TO SELF:
 
